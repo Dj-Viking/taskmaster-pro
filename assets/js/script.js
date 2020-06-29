@@ -46,6 +46,7 @@ var saveTasks = function() {
 };
 
 //** STARTING THE EDIT-TASKS FEATURE ******/
+/******************************************/
 //checking to see if our click event is targeting the element we want
 $(".list-group").on("click", "p", function(){
   console.log("<p> was clicked");
@@ -174,6 +175,103 @@ $(".list-group").on("blur", "input[type='text']", function(){
   $(this).replaceWith(taskSpan);
   
 })
+
+//******** END THE EDIT-TASKS FEATURE ******/
+/******************************************/
+
+//** STARTING THE DRAG DROP SORT FEATURE ***/
+/******************************************/
+
+//making the <ul> elements sortable these are the .list-group(s)
+$(".card .list-group").sortable({
+  connectWith: $(".card .list-group"),
+  scroll: false,
+  tolerance: "pointer",
+  //helper creates copy of the dragged element and move the copy instead of the original
+  //necessary to prevent click events from accientally triggering on the original element
+  helper: "clone",
+  //activate and deactive events trigger once for all connected
+  //lists as soon as dragging starts and stops
+  activate: function(event){
+    //console.log("activate", this);
+  },
+  deactivate: function(event){
+    //console.log("deactivate", this);
+  },
+  //over and out events trigger when dragged item enters or leaves a connected list
+  over: function(event){
+    //console.log("over", event.target);
+  },
+  out: function(event){
+    //console.log("out", event.target);
+  },
+  //update event triggers when the contents of a list have changed
+  //the items were re-ordered, an item was removed, or item was added
+  update: function(event){
+    //loop over current set of children in sortable list
+    //each() method will run a callback function for every
+    //item/element in the array. another form of loops, except that
+    //a function is now called on each loop iteration.
+    //keep in mind $(this) inside the callback function refers
+    //to the child element of that index.
+
+    //initializing a temp array to place task data as objects inside the array
+    //after the child element was updated
+    var tempArr = [];
+    $(this).children().each(function(){//for each child inside $(this) parent
+      //console.log($(this));
+      var text = $(this)//find the element and the text inside of $(this) child
+        .find("p")
+        .text()
+        .trim();
+      
+      var date = $(this)
+        .find("span")
+        .text()
+        .trim();
+      console.log("getting the text content of the updated children that were updated")
+      console.log(text, date);
+
+      //add task data to the temp array as an object
+      tempArr.push({
+        text: text,
+        date: date
+      });
+    });
+    console.log("text content of updated children were stored in a temp array as objects")
+    console.log(tempArr);
+    //trim down list's id to match object property
+    var arrName = $(this)
+      .attr("id")
+      .replace("list-", "");
+
+    //update array and tasks object and save
+    tasks[arrName] = tempArr;
+    saveTasks();
+    //$(this).children() refers to the parent of the children
+    //and displays the array of children element objects inside.
+    //console.log($(this).children());
+  }
+});
+
+//making trash a droppable place for the list items
+$("#trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui){
+    console.log("drop");
+    //once drop event happens the ui element we are dropping gets removed
+    ui.draggable.remove();
+  },
+  over: function(event, ui){
+    console.log("over");
+  },
+  out: function(event, ui){
+    console.log("out");
+  }
+});
+
+/******************************************/
 
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function() {
