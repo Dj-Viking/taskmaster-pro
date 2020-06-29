@@ -54,17 +54,17 @@ $(".list-group").on("click", "p", function(){
   console.log(this);
   //here we are using jquery syntax to store the textContent of object <p> 
   //into a new variable as just the text content contained within <p>
-  var pText = $(this)
+  var text = $(this)
     .text()
     .trim();
   console.log("displaying textContent of <p>");
-  console.log(pText);
+  console.log(text);
   
   //assigning a new variable with the value of the textContent extracted
   //from the jquery object we created out of $(this) which refers to <p> textContent
   var textInput = $("<textarea>")
     .addClass("form-control")
-    .val(pText);
+    .val(text);
 
   //replacing the <p> element with the <textarea> element
   $(this).replaceWith(textInput);
@@ -110,7 +110,8 @@ $(".list-group").on("blur", "textarea", function(){
 
   //still need to convert back to <p> from <textarea> which is 
   //now saving to storage after clicking out of the <textarea>
-  var taskP = $("p")
+  //when creating elements use the <p> tag brackets and when querying them just use "p" quotes
+  var taskP = $("<p>")
     .addClass("m-1")
     .text(text);
 
