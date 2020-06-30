@@ -120,14 +120,13 @@ $(".list-group").on("blur", "textarea", function(){
   $(this).replaceWith(taskP);//clicking out of the textarea to save the task makes some elements get deleted some how
 });
 
-//** EDITING DUE DATES *** */
+//************ EDITING DUE DATES **************** */
 //due date was clicked
 $(".list-group").on("click", "span", function(){
   //get current text
   var date = $(this)
     .text()
     .trim();
-
 
   //create new input element I guess these actualy need the <> for input tags
   var dateInput = $("<input>")
@@ -140,12 +139,25 @@ $(".list-group").on("click", "span", function(){
   //swap out elements
   $(this).replaceWith(dateInput);
 
+  //enable jquery ui datepicker
+  //need something else here to get the other dates to show up
+  //had to adjust the due date changing event from blur to change
+  dateInput.datepicker({
+    minDate: 1,
+    onClose: function(){
+      //when calender is closed, force a "change" event ont he dateInput
+      $(this).trigger("change");
+    }
+  });
+
   //automatically focus on new element
   dateInput.trigger("focus");
 });
 
 //value of due date was changed
-$(".list-group").on("blur", "input[type='text']", function(){
+//update changed this from blur to change because it doesn't play nice
+//with date picker
+$(".list-group").on("change", "input[type='text']", function(){
   //get current text
   var date = $(this)
     .val()
@@ -278,6 +290,14 @@ $("#task-form-modal").on("show.bs.modal", function() {
   // clear values
   $("#modalTaskDescription, #modalDueDate").val("");
 });
+
+//add the date picker to the modal form
+$("#modalDueDate").datepicker({
+  //restrict the choices to not pick the same date or anydate prior
+  //allows the future dates after one day after the current day
+  minDate: 1
+});
+
 
 // modal is fully visible
 $("#task-form-modal").on("shown.bs.modal", function() {
