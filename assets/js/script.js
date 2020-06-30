@@ -323,7 +323,11 @@ function auditTask(taskEl){
     //console.log("warning! this created item's due date is past due!!")
   } else if (Math.abs(moment().diff(time, "days")) <= 2){
     $(taskEl).addClass("list-group-item-warning");
-  } 
+  }
+  //checking to see if the timer function is working to check the due dates
+  console.log("console logging the id numbers given to the tasks being updated by the timer")
+  console.log(taskEl);
+  
 }
 
 
@@ -331,6 +335,21 @@ function auditTask(taskEl){
 
 /********** END DUE DATES ENHANCEMENT CODE *** */
 /***********************************************/
+
+/************************************************/
+/********** START TOUCH-UPS AND TIMERS CODE *****/
+
+setInterval(function(){
+  $(".card .list-group-item").each(function(el){
+    auditTask(el);
+  });
+}, (1000 * 60) * 30);//updating every 30 minutes
+
+
+
+
+/********** END TOUCH-UPS AND TIMERS CODE *******/
+/************************************************/
 
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function() {
