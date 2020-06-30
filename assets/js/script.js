@@ -1,3 +1,4 @@
+
 var tasks = {};
 
 var createTask = function(taskText, taskDate, taskList) {
@@ -12,6 +13,9 @@ var createTask = function(taskText, taskDate, taskList) {
 
   // append span and p element to parent li
   taskLi.append(taskSpan, taskP);
+
+  //check due date
+  auditTask(taskLi);
 
 
   // append to ul list on the page
@@ -160,15 +164,13 @@ $(".list-group").on("click", "span", function(){
 $(".list-group").on("change", "input[type='text']", function(){
   //get current text
   var date = $(this)
-    .val()
-    .trim();
-
+    .val();
+    //.trim();
   //get the parent ul's id attribute
   var status = $(this)
     .closest(".list-group")
     .attr("id")
     .replace("list-", "");
-  
   //get the tasks position in the list of other li elements
   var index = $(this)
     .closest(".list-group-item")
@@ -185,8 +187,12 @@ $(".list-group").on("change", "input[type='text']", function(){
 
   //replace input with span element
   $(this).replaceWith(taskSpan);
+
+  //pass task's <li> element into auditTask() to check new due date
+  auditTask($(taskSpan)
+  .closest(".list-group-item"));
   
-})
+});
 
 //******** END THE EDIT-TASKS FEATURE ******/
 /******************************************/
@@ -282,8 +288,49 @@ $("#trash").droppable({
     console.log("out");
   }
 });
-
+/**********END DRAG/DROP CODE**************/
 /******************************************/
+
+/********** START DUE DATES ENHANCEMENT CODE *** */
+/*************************************************/
+
+function auditTask(taskEl){
+  //to ensure element is getting to the function
+  console.log("auditing task function was executed before the item was added to the page!");
+  console.log(taskEl);
+
+  //get date from task element
+  var date = $(taskEl).find("span")//find <span> element inside the taskEl we are querying
+    .text()//get the text content from it
+    .trim();//trim the empty spaces at beginning and/or end of the string we got!
+  //ensure that we got the date
+  console.log("here is the date we got from the element!")
+  console.log(date);
+
+  //convert to moment object at 5:00pm
+  var time = moment(date, "L")
+    .set("hour", 17);
+  //this should print out an object for the value of the date variable
+  console.log("printing out the object for the value stored in date variable!")
+  console.log(time);
+
+  //remove any old classes from element
+  $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
+
+  //apply new class if task is near/over due date
+  if (moment().isAfter(time)){
+    $(taskEl).addClass("list-group-item-danger");
+    //console.log("warning! this created item's due date is past due!!")
+  } else if (Math.abs(moment().diff(time, "days")) <= 2){
+    $(taskEl).addClass("list-group-item-warning");
+  } 
+}
+
+
+
+
+/********** END DUE DATES ENHANCEMENT CODE *** */
+/***********************************************/
 
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function() {
