@@ -211,16 +211,20 @@ $(".card .list-group").sortable({
   //activate and deactive events trigger once for all connected
   //lists as soon as dragging starts and stops
   activate: function(event){
+    $(this).addClass("dropover");
     //console.log("activate", this);
   },
   deactivate: function(event){
+    $(this).removeClass("dropover");
     //console.log("deactivate", this);
   },
   //over and out events trigger when dragged item enters or leaves a connected list
   over: function(event){
+    $(event.target).addClass("dropover-active");
     //console.log("over", event.target);
   },
   out: function(event){
+    $(event.target).removeClass("dropover-active");
     //console.log("out", event.target);
   },
   //update event triggers when the contents of a list have changed

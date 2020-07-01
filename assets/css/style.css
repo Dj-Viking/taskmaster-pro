@@ -9,3 +9,35 @@ body {
 h1, h2, h3, h4, h5, h6{
   font-family: "Staatliches", sans-serif;
 }
+
+/* 
+the style below displays whenever a sortable item is picked up from a droppable area 
+activate: function(event){
+    $(this).addClass("dropover");
+    //console.log("activate", this);
+  },
+  deactivate: function(event){
+    $(this).removeClass("dropover");
+    //console.log("deactivate", this);
+  },
+*/
+.dropover {
+  background-color: rgba(0,0,0,0.3);
+  transition: 0.5s;
+}
+
+/* 
+the style below displays whenever a sortable item is dragged on top of a droppable area 
+over: function(event){
+    $(event.target).addClass("dropover-active");
+    //console.log("over", event.target);
+  },
+  out: function(event){
+    $(event.target).removeClass("dropover-active");
+    //console.log("out", event.target);
+  },
+*/
+.dropover-active {
+  background-color: rgba(0,0,0,0.8);
+  transition: 0.5s;
+}
