@@ -42,7 +42,7 @@ over: function(event){
   transition: 0.5s;
 }
 
-/*trash custom styling */
+/* trash custom styling start */
 .bottom-trash{
   opacity: 0;
   color: #f1f1f1;
@@ -61,3 +61,29 @@ over: function(event){
 .bottom-trash-active{
   background-color: rgba(234,0,39,1);
 }
+/* trash custom styling end */
+
+/* button custom styling start */
+
+.btn-add, .btn-save {
+  background-color: #FA8BFF;
+  background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+  transition: all .5s ease-out;
+  background-size: 1px 100px;
+  background-position: 0 -10px;
+}
+
+.btn-close, .btn-delete{
+  background-color: #EA0028;
+  background-image: linear-gradient(180deg, #FF9A8B 0%, #EA0028 100%);
+  transition: all .5s ease-out;
+  background-size: 1px 100px;
+  background-position: 0 -10px;
+}
+
+.btn-close:hover, .btn-delete:hover, .btn-add:hover, .btn-save:hover{
+  background-position: 1px -50px;
+}
+
+/* button custom styling end */
+
