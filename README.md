@@ -4,4 +4,4 @@
 https://dj-viking.github.io/taskmaster-pro/
 
 ## Screenshot
-![Image of Application Page](./assets/images/page-screenshot.jpg)
+![Image of Application Page](./assets/images/page-screenshot.png)
