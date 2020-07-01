@@ -212,10 +212,12 @@ $(".card .list-group").sortable({
   //lists as soon as dragging starts and stops
   activate: function(event){
     $(this).addClass("dropover");
+    $(".bottom-trash").addClass("bottom-trash-drag");
     //console.log("activate", this);
   },
   deactivate: function(event){
     $(this).removeClass("dropover");
+    $(".bottom-trash").removeClass("bottom-trash-drag");
     //console.log("deactivate", this);
   },
   //over and out events trigger when dragged item enters or leaves a connected list
@@ -286,9 +288,11 @@ $("#trash").droppable({
     ui.draggable.remove();
   },
   over: function(event, ui){
+    $(".bottom-trash").addClass("bottom-trash-active");
     console.log("over");
   },
   out: function(event, ui){
+    $(".bottom-trash").removeClass("bottom-trash-active");
     console.log("out");
   }
 });
