@@ -20,6 +20,8 @@ var createTask = function(taskText, taskDate, taskList) {
 
 
   // append to ul list on the page
+  //taskList was a string "toDo" passed in from modal submit
+  //this id attribute was created dynamically
   $("#list-" + taskList).append(taskLi);
 };
 
@@ -214,12 +216,12 @@ $(".card .list-group").sortable({
   activate: function(event){
     $(this).addClass("dropover");
     $(".bottom-trash").addClass("bottom-trash-drag");
-    //console.log("activate", this);
+    console.log("activate", this);
   },
   deactivate: function(event){
     $(this).removeClass("dropover");
     $(".bottom-trash").removeClass("bottom-trash-drag");
-    //console.log("deactivate", this);
+    console.log("deactivate", this);
   },
   //over and out events trigger when dragged item enters or leaves a connected list
   over: function(event){
@@ -265,10 +267,12 @@ $(".card .list-group").sortable({
     });
     console.log("text content of updated children were stored in a temp array as objects")
     console.log(tempArr);
-    //trim down list's id to match object property
+    //trim down list's id to match the parent's id
+    //so that we can save it in the array with the same name as
+    //the id hence list-toDo or list-inProgress or list-inReview or list-done
     var arrName = $(this)
       .attr("id")
-      .replace("list-", "");
+      .replace("list-", "");//whatever is in the quotes we are using for the name of the array that we are storing this task in
 
     //update array and tasks object and save
     tasks[arrName] = tempArr;
