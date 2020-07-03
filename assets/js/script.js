@@ -1,6 +1,7 @@
 
 var tasks = {};
 
+//arguments are values passed in from the modal save button
 var createTask = function(taskText, taskDate, taskList) {
   // create elements that make up a task item
   var taskLi = $("<li>").addClass("list-group-item");
@@ -304,23 +305,23 @@ $("#trash").droppable({
 
 function auditTask(taskEl){
   //to ensure element is getting to the function
-  console.log("auditing task function was executed before the item was added to the page!");
-  console.log(taskEl);
+  //console.log("auditing task function was executed before the item was added to the page!");
+  //console.log(taskEl);
 
   //get date from task element
   var date = $(taskEl).find("span")//find <span> element inside the taskEl we are querying
     .text()//get the text content from it
     .trim();//trim the empty spaces at beginning and/or end of the string we got!
   //ensure that we got the date
-  console.log("here is the date we got from the element!")
-  console.log(date);
+  //console.log("here is the date we got from the element!")
+  //console.log(date);
 
   //convert to moment object at 5:00pm
   var time = moment(date, "L")
     .set("hour", 17);
   //this should print out an object for the value of the date variable
-  console.log("printing out the object for the value stored in date variable!")
-  console.log(time);
+  //console.log("printing out the object for the value stored in date variable!")
+  //console.log(time);
 
   //remove any old classes from element
   $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
@@ -333,8 +334,8 @@ function auditTask(taskEl){
     $(taskEl).addClass("list-group-item-warning");
   }
   //checking to see if the timer function is working to check the due dates
-  console.log("console logging the id numbers given to the tasks being updated by the timer")
-  console.log(taskEl);
+  //console.log("console logging the id numbers given to the tasks being updated by the timer")
+  //console.log(taskEl);
   
 }
 
