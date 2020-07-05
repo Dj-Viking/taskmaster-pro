@@ -124,7 +124,7 @@ $(".list-group").on("blur", "textarea", function(){
     .text(text);
 
   //replace <textarea> with <p> element
-  $(this).replaceWith(taskP);//clicking out of the textarea to save the task makes some elements get deleted some how
+  $(this).replaceWith(taskP);
 });
 
 //************ EDITING DUE DATES **************** */
